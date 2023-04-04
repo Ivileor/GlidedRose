@@ -117,4 +117,15 @@ class GildedRoseTest {
         assertEquals(expectedQuality, app.items[3].quality);
     }
 
+    @Test
+    void given10DaysOrLessBackstagePasses_whenComeEndOfTheDay_thenQualityIsAlteredTwice(){
+        app.items[3].sellIn = 10;
+        int expectedQuality = app.items[3].quality + 2;
+
+        app.updateQuality();
+
+        assertEquals("Backstage passes to a TAFKAL80ETC concert", app.items[3].name);
+        assertEquals(expectedQuality, app.items[3].quality);
+    }
+
 }
