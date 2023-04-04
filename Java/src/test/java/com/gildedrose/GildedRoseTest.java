@@ -95,4 +95,15 @@ class GildedRoseTest {
         assertEquals(sulfurasExpectedQuality, app.items[2].quality);
     }
 
+    @Test
+    void givenExpiredSulfuras_whenComeEndOfTheDay_thenQualityIsNotAltered(){
+        int sulfurasExpectedQuality = 80;
+        app.items[2].sellIn = 0;
+        
+        app.updateQuality();
+
+        assertEquals("Sulfuras, Hand of Ragnaros", app.items[2].name);
+        assertEquals(sulfurasExpectedQuality, app.items[2].quality);
+    }
+
 }
