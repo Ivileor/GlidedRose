@@ -15,6 +15,7 @@ class GildedRoseTest {
         items = new Item[] {
             new Item("Elixir of the Mongoose", 5, 7),
             new Item("Rotten elixir of the Mongoose", 0, 7),
+            new Item("Risky elixir of the Mongoose", 0, 0),
             new Item("Sulfuras, Hand of Ragnaros", 1, 80)
         };
         app = new GildedRose(items);
@@ -37,6 +38,13 @@ class GildedRoseTest {
         int expectedQuality = app.items[1].quality - 2;
         app.updateQuality();
         assertEquals(expectedQuality, app.items[1].quality);
+    }
+
+    @Test
+    void givenCommonItemWithZeroQuality_whenComeEndOfTheDay_thenQualityIsNotNegative() {
+        int expectedQuality = 0;
+        app.updateQuality();
+        assertEquals(expectedQuality, app.items[2].quality);
     }
 
     @Test
