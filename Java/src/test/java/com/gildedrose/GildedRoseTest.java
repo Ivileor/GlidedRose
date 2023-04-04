@@ -14,6 +14,7 @@ class GildedRoseTest {
     void initItems(){
         items = new Item[] {
             new Item("Elixir of the Mongoose", 5, 7),
+            new Item("Rotten elixir of the Mongoose", 0, 7),
             new Item("Sulfuras, Hand of Ragnaros", 1, 80)
         };
         app = new GildedRose(items);
@@ -29,6 +30,13 @@ class GildedRoseTest {
         int expectedQuality = app.items[0].quality - 1;
         app.updateQuality();
         assertEquals(expectedQuality, app.items[0].quality);
+    }
+
+    @Test
+    void givenCommonItemWithPassedSellDate_whenComeEndOfTheDay_thenQualityIsAltered() {
+        int expectedQuality = app.items[1].quality - 2;
+        app.updateQuality();
+        assertEquals(expectedQuality, app.items[1].quality);
     }
 
     @Test
