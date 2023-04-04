@@ -15,7 +15,8 @@ class GildedRoseTest {
         items = new Item[] {
             new Item("Common item", 5, 7),
             new Item("Aged Brie", 2, 0),
-            new Item("Sulfuras, Hand of Ragnaros", 1, 80)
+            new Item("Sulfuras, Hand of Ragnaros", 1, 80),
+            new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20)
         };
         app = new GildedRose(items);
     }
@@ -35,7 +36,7 @@ class GildedRoseTest {
     }
 
     @Test
-    void givenCommonItemWithExpiredSellDate_whenComeEndOfTheDay_thenQualityIsAltered() {
+    void givenCommonItemWithExpiredSellDate_whenComeEndOfTheDay_thenQualityIsAlteredTwice() {
         int expectedQuality = app.items[0].quality - 2;
         app.items[0].sellIn = 0;
 
@@ -65,7 +66,7 @@ class GildedRoseTest {
     }
 
     @Test
-    void givenAgedBrieWithPassedSellDate_whenComeEndOfTheDay_thenQualityIsAltered() {
+    void givenAgedBrieWithPassedSellDate_whenComeEndOfTheDay_thenQualityIsAlteredTwice() {
         app.items[1].sellIn = 0;
         int expectedQuality = app.items[1].quality + 2;
         app.updateQuality();
@@ -99,11 +100,21 @@ class GildedRoseTest {
     void givenExpiredSulfuras_whenComeEndOfTheDay_thenQualityIsNotAltered(){
         int sulfurasExpectedQuality = 80;
         app.items[2].sellIn = 0;
-        
+
         app.updateQuality();
 
         assertEquals("Sulfuras, Hand of Ragnaros", app.items[2].name);
         assertEquals(sulfurasExpectedQuality, app.items[2].quality);
+    }
+
+    @Test
+    void given11DaysOrMoreBackstagePasses_whenComeEndOfTheDay_thenQualityIsAltered(){
+        int expectedQuality = app.items[3].quality + 1;
+
+        app.updateQuality();
+
+        assertEquals("Backstage passes to a TAFKAL80ETC concert", app.items[3].name);
+        assertEquals(expectedQuality, app.items[3].quality);
     }
 
 }
