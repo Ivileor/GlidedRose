@@ -67,12 +67,44 @@ class GildedRose {
     private int decreaseQuality(String itemName, int originalQuality){
         if(originalQuality > 0){
             if(itemName.contains(ItemConstants.CONJURED) && originalQuality > 1){
-                return originalQuality - ItemConstants.CONJURED_QUALITY_DECREASING_FACTOR;
+                return originalQuality - ItemConstants.CONJURED_QUALITY_DECREASING;
             }else {
-                return originalQuality - ItemConstants.QUALITY_CHANGE_FACTOR;
+                return originalQuality - ItemConstants.COMMON_QUALITY_CHANGE;
             }
         }
         return originalQuality;
+    }
+
+    /***
+     * Computing Backstage quality regarding the sell in situation :
+     * - sellIn < 0 : quality = 0
+     * - sellIn < 5 : quality increase by 3
+     * - sellIn < 10 : quality increase by 2
+     * - by default : quality increase by 1
+     * @param sellIn : given item sellIn
+     * @param originalQuality : given item quality before computation
+     * @return quality at the end of day
+     */
+    private int backstagePassesComputingQuality(int sellIn, int originalQuality){
+        if(sellIn < 0){
+            return ItemConstants.BACKSTAGE_PASSES_QUALITY_AFTER_CONCERT;
+        } else if(sellIn <= 5){
+            return increaseQuality(originalQuality, ItemConstants.BACKSTAGE_PASSES_5_DAYS_INCREASE);
+        } else if (sellIn <= 10) {
+            return increaseQuality(originalQuality, ItemConstants.BACKSTAGE_PASSES_10_DAYS_INCREASE);
+        } else {
+            return increaseQuality(originalQuality, ItemConstants.COMMON_QUALITY_CHANGE);
+        }
+    }
+
+    /***
+     * Increase item quality without exceed the max allowed
+     * @param originalQuality : given item quality
+     * @param increase : increase applied to item quality
+     * @return the item increased quality
+     */
+    private int increaseQuality(int originalQuality, int increase){
+        return Math.min((originalQuality + increase), ItemConstants.MAX_COMMON_ITEM_QUALITY_ALLOWED);
     }
 
     /***
@@ -89,4 +121,5 @@ class GildedRose {
         }
         return originalSellIn;
     }
+
 }
