@@ -2,7 +2,9 @@ package com.gildedrose;
 
 class GildedRose {
     Item[] items;
-    final static String _CONJURED_SUFFIX = "Conjured";
+    static final String CONJURED = "Conjured";
+    static final int QUALITY_DECREASE = 1;
+    static final int CONJURED_QUALITY_DECREASE = 2;
     public GildedRose(Item[] items) {
         this.items = items;
     }
@@ -62,17 +64,17 @@ class GildedRose {
 
     /***
      * calculating the decrease in quality, regard on item name :
-     * - If the item name contain "Conjured" then quality is decrease twice
+     * - If the item name contain "Conjured" and his quality is more than 1 then quality is decrease twice
      * - Else the quality is decreased one time
      * @param itemName : given item name
      * @param originalQuality : given item quality before decrease computation
      * @return the item quality after the ending day decrease
      */
     private int decreaseQuality(String itemName, int originalQuality){
-        if(itemName.contains(_CONJURED_SUFFIX) && originalQuality > 1){
-            return originalQuality - 2;
+        if(itemName.contains(CONJURED) && originalQuality > 1){
+            return originalQuality - CONJURED_QUALITY_DECREASE;
         }else {
-            return originalQuality - 1;
+            return originalQuality - QUALITY_DECREASE;
         }
     }
 }
