@@ -10,11 +10,11 @@ public final class ItemConstants {
 
     // Quality factor
     public static final int MAX_COMMON_ITEM_QUALITY_ALLOWED = 50;
+    public static final int MIN_COMMON_ITEM_QUALITY_ALLOWED = 0;
     public static final int COMMON_QUALITY_CHANGE = 1;
     public static final int CONJURED_QUALITY_DECREASING = 2;
     public static final int BACKSTAGE_PASSES_10_DAYS_INCREASE = 2;
     public static final int BACKSTAGE_PASSES_5_DAYS_INCREASE = 3;
-    public static final int BACKSTAGE_PASSES_QUALITY_AFTER_CONCERT = 0;
 
     // Sell in factor
     public static final int SELL_IN_DECREASING_FACTOR = 1;

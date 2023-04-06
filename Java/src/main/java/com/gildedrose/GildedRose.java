@@ -65,7 +65,7 @@ class GildedRose {
      * @return the item quality after the ending day decrease
      */
     private int decreaseQuality(String itemName, int originalQuality){
-        if(originalQuality > 0){
+        if(originalQuality > ItemConstants.MIN_COMMON_ITEM_QUALITY_ALLOWED){
             if(itemName.contains(ItemConstants.CONJURED) && originalQuality > 1){
                 return originalQuality - ItemConstants.CONJURED_QUALITY_DECREASING;
             }else {
@@ -87,7 +87,7 @@ class GildedRose {
      */
     private int backstagePassesComputingQuality(int sellIn, int originalQuality){
         if(sellIn < 0){
-            return ItemConstants.BACKSTAGE_PASSES_QUALITY_AFTER_CONCERT;
+            return ItemConstants.MIN_COMMON_ITEM_QUALITY_ALLOWED;
         } else if(sellIn <= 5){
             return increaseQuality(originalQuality, ItemConstants.BACKSTAGE_PASSES_5_DAYS_INCREASE);
         } else if (sellIn <= 10) {
