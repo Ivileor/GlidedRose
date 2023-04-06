@@ -1,18 +1,20 @@
 package com.gildedrose;
 
+import com.gildedrose.constants.ItemConstants;
+
 class GildedRose {
     Item[] items;
-    static final String _CONJURED_SUFFIX = "Conjured";
+
     public GildedRose(Item[] items) {
         this.items = items;
     }
 
     public void updateQuality() {
         for (Item item : items) {
-            if (!item.name.equals("Aged Brie")
-                && !item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+            if (!item.name.equals(ItemConstants.AGED_BRIE)
+                && !item.name.equals(ItemConstants.BACKSTAGE_PASSES)) {
                 if (item.quality > 0) {
-                    if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
+                    if (!item.name.equals(ItemConstants.SULFURAS)) {
                         item.quality = decreaseQuality(item.name, item.quality);
                     }
                 }
@@ -20,7 +22,7 @@ class GildedRose {
                 if (item.quality < 50) {
                     item.quality = item.quality + 1;
 
-                    if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+                    if (item.name.equals(ItemConstants.BACKSTAGE_PASSES)) {
                         if (item.sellIn < 11) {
                             if (item.quality < 50) {
                                 item.quality = item.quality + 1;
@@ -36,15 +38,15 @@ class GildedRose {
                 }
             }
 
-            if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
+            if (!item.name.equals(ItemConstants.SULFURAS)) {
                 item.sellIn = item.sellIn - 1;
             }
 
             if (item.sellIn < 0) {
-                if (!item.name.equals("Aged Brie")) {
-                    if (!item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+                if (!item.name.equals(ItemConstants.AGED_BRIE)) {
+                    if (!item.name.equals(ItemConstants.BACKSTAGE_PASSES)) {
                         if (item.quality > 0) {
-                            if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
+                            if (!item.name.equals(ItemConstants.SULFURAS)) {
                                 item.quality = decreaseQuality(item.name, item.quality);
                             }
                         }
@@ -69,7 +71,7 @@ class GildedRose {
      * @return the item quality after the ending day decrease
      */
     private int decreaseQuality(String itemName, int originalQuality){
-        if(itemName.contains(_CONJURED_SUFFIX) && originalQuality > 1){
+        if(itemName.contains(ItemConstants.CONJURED) && originalQuality > 1){
             return originalQuality - 2;
         }else {
             return originalQuality - 1;
