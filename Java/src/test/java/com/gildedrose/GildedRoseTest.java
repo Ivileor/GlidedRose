@@ -139,4 +139,14 @@ class GildedRoseTest {
         assertEquals(expectedQuality, app.items[3].quality);
     }
 
+    @Test
+    void given0DaysOrLessBackstagePasses_whenComeEndOfTheDay_thenQualityIsZero(){
+        app.items[3].sellIn = 0;
+        int expectedQuality = 0;
+
+        app.updateQuality();
+
+        assertEquals("Backstage passes to a TAFKAL80ETC concert", app.items[3].name);
+        assertEquals(expectedQuality, app.items[3].quality);
+    }
 }
