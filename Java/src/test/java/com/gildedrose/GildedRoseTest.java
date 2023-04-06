@@ -47,7 +47,6 @@ class GildedRoseTest {
     void givenCommonItemWithExpiredSellDate_whenComeEndOfTheDay_thenQualityIsDegradedTwice() {
         setGivenItem(0, 0, 3);
         int expectedQuality = app.items[0].quality - 2;
-        app.items[0].sellIn = 0;
 
         app.updateQuality();
 
@@ -59,7 +58,6 @@ class GildedRoseTest {
     void givenCommonItemWithZeroQuality_whenComeEndOfTheDay_thenQualityIsNotNegative() {
         setGivenItem(0, 2, 0);
         int expectedQuality = 0;
-        app.items[0].quality = 0;
         app.updateQuality();
 
         assertEquals("Common item", app.items[0].name);
@@ -90,7 +88,6 @@ class GildedRoseTest {
     void givenAgedBrieWithMaxQuality_whenComeEndOfTheDay_thenQualityIsNotIncreasedThanMax() {
         setGivenItem(1, 2, 50);
         int expectedQuality = 50;
-        app.items[1].quality = 50;
 
         app.updateQuality();
 
@@ -161,5 +158,38 @@ class GildedRoseTest {
 
         assertEquals("Backstage passes to a TAFKAL80ETC concert", app.items[3].name);
         assertEquals(expectedQuality, app.items[3].quality);
+    }
+
+    @Test
+    void givenConjuredItem_whenComeEndOfTheDay_thenQualityIsDegradedTwice(){
+        setGivenItem(4, 2, 4);
+        int expectedQuality = app.items[4].quality - 2;
+
+        app.updateQuality();
+
+        assertEquals("Conjured Mana Cake", app.items[4].name);
+        assertEquals(expectedQuality, app.items[4].quality);
+    }
+
+    @Test
+    void givenExpiredConjuredItem_whenComeEndOfTheDay_thenQualityIsDegradedFourTimes(){
+        setGivenItem(4, 0, 5);
+        int expectedQuality = app.items[4].quality - 4;
+
+        app.updateQuality();
+
+        assertEquals("Conjured Mana Cake", app.items[4].name);
+        assertEquals(expectedQuality, app.items[4].quality);
+    }
+
+    @Test
+    void givenConjuredItemWithZeroQuality_whenComeEndOfTheDay_thenQualityIsIsNotNegative(){
+        setGivenItem(4, 2, 0);
+        int expectedQuality = 0;
+
+        app.updateQuality();
+
+        assertEquals("Conjured Mana Cake", app.items[4].name);
+        assertEquals(expectedQuality, app.items[4].quality);
     }
 }
