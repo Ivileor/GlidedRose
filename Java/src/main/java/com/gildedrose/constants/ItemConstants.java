@@ -9,4 +9,8 @@ public final class ItemConstants {
     public static final int QUALITY_CHANGE_FACTOR = 1;
     public static final int CONJURED_QUALITY_CHANGE_FACTOR = 2;
 
+    private ItemConstants(){
+
+    }
+
 }
