@@ -17,7 +17,7 @@ class GildedRoseTest {
             new Item("Aged Brie", 0, 0),
             new Item("Sulfuras, Hand of Ragnaros", 1, 80),
             new Item("Backstage passes to a TAFKAL80ETC concert", 0, 0),
-            new Item("Conjured Mana Cake", 0, 0)
+            new Item("Conjured item", 0, 0)
         };
         app = new GildedRose(items);
     }
@@ -167,7 +167,7 @@ class GildedRoseTest {
 
         app.updateQuality();
 
-        assertEquals("Conjured Mana Cake", app.items[4].name);
+        assertEquals("Conjured item", app.items[4].name);
         assertEquals(expectedQuality, app.items[4].quality);
     }
 
@@ -178,7 +178,7 @@ class GildedRoseTest {
 
         app.updateQuality();
 
-        assertEquals("Conjured Mana Cake", app.items[4].name);
+        assertEquals("Conjured item", app.items[4].name);
         assertEquals(expectedQuality, app.items[4].quality);
     }
 
@@ -189,7 +189,18 @@ class GildedRoseTest {
 
         app.updateQuality();
 
-        assertEquals("Conjured Mana Cake", app.items[4].name);
+        assertEquals("Conjured item", app.items[4].name);
+        assertEquals(expectedQuality, app.items[4].quality);
+    }
+
+    @Test
+    void givenConjuredItemWithLessThan2Quality_whenComeEndOfTheDay_thenQualityIsIsNotNegative(){
+        setGivenItem(4, 2, 1);
+        int expectedQuality = 0;
+
+        app.updateQuality();
+
+        assertEquals("Conjured item", app.items[4].name);
         assertEquals(expectedQuality, app.items[4].quality);
     }
 }
