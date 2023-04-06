@@ -11,7 +11,6 @@ class GildedRose {
 
     public void updateQuality() {
         for (Item item : items) {
-            item.sellIn = decreaseSellIn(item.name, item.sellIn);
 
             if (!item.name.equals(ItemConstants.AGED_BRIE)
                 && !item.name.equals(ItemConstants.BACKSTAGE_PASSES)) {
@@ -25,6 +24,8 @@ class GildedRose {
                     item.quality = item.quality + 1;
                 }
             }
+
+            item.sellIn = decreaseSellIn(item.name, item.sellIn);
 
             if (item.sellIn < 0) {
                 if (!item.name.equals(ItemConstants.AGED_BRIE)) {
