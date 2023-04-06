@@ -6,7 +6,7 @@ public final class ItemConstants {
     public static final String SULFURAS = "Sulfuras, Hand of Ragnaros";
     public static final String AGED_BRIE = "Aged Brie";
 
-    public static final int QUALITY_DECREASE = 1;
-    public static final int CONJURED_QUALITY_DECREASE = 2;
+    public static final int QUALITY_CHANGE_FACTOR = 1;
+    public static final int CONJURED_QUALITY_CHANGE_FACTOR = 2;
 
 }

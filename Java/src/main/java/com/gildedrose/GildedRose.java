@@ -13,10 +13,8 @@ class GildedRose {
         for (Item item : items) {
             if (!item.name.equals(ItemConstants.AGED_BRIE)
                 && !item.name.equals(ItemConstants.BACKSTAGE_PASSES)) {
-                if (item.quality > 0) {
-                    if (!item.name.equals(ItemConstants.SULFURAS)) {
-                        item.quality = decreaseQuality(item.name, item.quality);
-                    }
+                if (!item.name.equals(ItemConstants.SULFURAS)) {
+                    item.quality = decreaseQuality(item.name, item.quality);
                 }
             } else {
                 if (item.quality < 50) {
@@ -45,10 +43,8 @@ class GildedRose {
             if (item.sellIn < 0) {
                 if (!item.name.equals(ItemConstants.AGED_BRIE)) {
                     if (!item.name.equals(ItemConstants.BACKSTAGE_PASSES)) {
-                        if (item.quality > 0) {
-                            if (!item.name.equals(ItemConstants.SULFURAS)) {
-                                item.quality = decreaseQuality(item.name, item.quality);
-                            }
+                        if (!item.name.equals(ItemConstants.SULFURAS)) {
+                            item.quality = decreaseQuality(item.name, item.quality);
                         }
                     } else {
                         item.quality = item.quality - item.quality;
@@ -71,10 +67,13 @@ class GildedRose {
      * @return the item quality after the ending day decrease
      */
     private int decreaseQuality(String itemName, int originalQuality){
-        if(itemName.contains(ItemConstants.CONJURED) && originalQuality > 1){
-            return originalQuality - ItemConstants.CONJURED_QUALITY_DECREASE;
-        }else {
-            return originalQuality - ItemConstants.QUALITY_DECREASE;
+        if(originalQuality > 0){
+            if(itemName.contains(ItemConstants.CONJURED) && originalQuality > 1){
+                return originalQuality - ItemConstants.CONJURED_QUALITY_CHANGE_FACTOR;
+            }else {
+                return originalQuality - ItemConstants.QUALITY_CHANGE_FACTOR;
+            }
         }
+        return originalQuality;
     }
 }
