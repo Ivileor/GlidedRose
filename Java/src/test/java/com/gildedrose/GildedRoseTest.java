@@ -13,10 +13,11 @@ class GildedRoseTest {
     @BeforeEach
     void initItems(){
         items = new Item[] {
-            new Item("Common item", 5, 7),
-            new Item("Aged Brie", 2, 0),
+            new Item("Common item", 0, 0),
+            new Item("Aged Brie", 0, 0),
             new Item("Sulfuras, Hand of Ragnaros", 1, 80),
-            new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20)
+            new Item("Backstage passes to a TAFKAL80ETC concert", 0, 0),
+            new Item("Conjured Mana Cake", 0, 0)
         };
         app = new GildedRose(items);
     }
@@ -26,8 +27,15 @@ class GildedRoseTest {
         items = null;
         app = null;
     }
+
+    private void setGivenItem(int position, int sellIn, int quality){
+        items[position].sellIn = sellIn;
+        items[position].quality = quality;
+
+    }
     @Test
-    void givenCommonItemWithNotExpiredSellDate_whenComeEndOfTheDay_thenQualityIsAltered() {
+    void givenCommonItemWithNotExpiredSellDate_whenComeEndOfTheDay_thenQualityIsDegraded() {
+        setGivenItem(0, 2, 2);
         int expectedQuality = app.items[0].quality - 1;
         app.updateQuality();
 
@@ -36,7 +44,8 @@ class GildedRoseTest {
     }
 
     @Test
-    void givenCommonItemWithExpiredSellDate_whenComeEndOfTheDay_thenQualityIsAlteredTwice() {
+    void givenCommonItemWithExpiredSellDate_whenComeEndOfTheDay_thenQualityIsDegradedTwice() {
+        setGivenItem(0, 0, 3);
         int expectedQuality = app.items[0].quality - 2;
         app.items[0].sellIn = 0;
 
@@ -48,6 +57,7 @@ class GildedRoseTest {
 
     @Test
     void givenCommonItemWithZeroQuality_whenComeEndOfTheDay_thenQualityIsNotNegative() {
+        setGivenItem(0, 2, 0);
         int expectedQuality = 0;
         app.items[0].quality = 0;
         app.updateQuality();
@@ -57,7 +67,8 @@ class GildedRoseTest {
     }
 
     @Test
-    void givenAgedBrieWithNotPassedSellDate_whenComeEndOfTheDay_thenQualityIsAltered() {
+    void givenAgedBrieWithNotPassedSellDate_whenComeEndOfTheDay_thenQualityIsIncreased() {
+        setGivenItem(1, 2, 2);
         int expectedQuality = app.items[1].quality + 1;
         app.updateQuality();
 
@@ -66,8 +77,8 @@ class GildedRoseTest {
     }
 
     @Test
-    void givenAgedBrieWithPassedSellDate_whenComeEndOfTheDay_thenQualityIsAlteredTwice() {
-        app.items[1].sellIn = 0;
+    void givenAgedBrieWithPassedSellDate_whenComeEndOfTheDay_thenQualityIsIncreasedTwice() {
+        setGivenItem(1, 0, 2);
         int expectedQuality = app.items[1].quality + 2;
         app.updateQuality();
 
@@ -76,7 +87,8 @@ class GildedRoseTest {
     }
 
     @Test
-    void givenAgedBrieWithMaxQuality_whenComeEndOfTheDay_thenQualityIsNotUpperThanMax() {
+    void givenAgedBrieWithMaxQuality_whenComeEndOfTheDay_thenQualityIsNotIncreasedThanMax() {
+        setGivenItem(1, 2, 50);
         int expectedQuality = 50;
         app.items[1].quality = 50;
 
@@ -108,7 +120,8 @@ class GildedRoseTest {
     }
 
     @Test
-    void given11DaysOrMoreBackstagePasses_whenComeEndOfTheDay_thenQualityIsAltered(){
+    void given11DaysOrMoreBackstagePasses_whenComeEndOfTheDay_thenQualityIsIncreased(){
+        setGivenItem(3, 11, 2);
         int expectedQuality = app.items[3].quality + 1;
 
         app.updateQuality();
@@ -118,8 +131,8 @@ class GildedRoseTest {
     }
 
     @Test
-    void given10DaysOrLessBackstagePasses_whenComeEndOfTheDay_thenQualityIsAlteredTwice(){
-        app.items[3].sellIn = 10;
+    void given10DaysOrLessBackstagePasses_whenComeEndOfTheDay_thenQualityIsIncreasedTwice(){
+        setGivenItem(3, 10, 2);
         int expectedQuality = app.items[3].quality + 2;
 
         app.updateQuality();
@@ -129,8 +142,8 @@ class GildedRoseTest {
     }
 
     @Test
-    void given5DaysOrLessBackstagePasses_whenComeEndOfTheDay_thenQualityIsAlteredThreeTimes(){
-        app.items[3].sellIn = 5;
+    void given5DaysOrLessBackstagePasses_whenComeEndOfTheDay_thenQualityIsIncreasedThreeTimes(){
+        setGivenItem(3, 5, 2);
         int expectedQuality = app.items[3].quality + 3;
 
         app.updateQuality();
@@ -141,7 +154,7 @@ class GildedRoseTest {
 
     @Test
     void given0DaysOrLessBackstagePasses_whenComeEndOfTheDay_thenQualityIsZero(){
-        app.items[3].sellIn = 0;
+        setGivenItem(3, 0, 2);
         int expectedQuality = 0;
 
         app.updateQuality();
