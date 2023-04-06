@@ -2,7 +2,7 @@ package com.gildedrose;
 
 class GildedRose {
     Item[] items;
-
+    final static String _CONJURED_SUFFIX = "Conjured";
     public GildedRose(Item[] items) {
         this.items = items;
     }
@@ -13,7 +13,7 @@ class GildedRose {
                     && !items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
                 if (items[i].quality > 0) {
                     if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
-                        items[i].quality = items[i].quality - 1;
+                        items[i].quality = decreaseQuality(items[i].name, items[i].quality);
                     }
                 }
             } else {
@@ -45,7 +45,7 @@ class GildedRose {
                     if (!items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
                         if (items[i].quality > 0) {
                             if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
-                                items[i].quality = items[i].quality - 1;
+                                items[i].quality = decreaseQuality(items[i].name, items[i].quality);
                             }
                         }
                     } else {
@@ -57,6 +57,22 @@ class GildedRose {
                     }
                 }
             }
+        }
+    }
+
+    /***
+     * calculating the decrease in quality, regard on item name :
+     * - If the item name contain "Conjured" then quality is decrease twice
+     * - Else the quality is decreased one time
+     * @param itemName : given item name
+     * @param originalQuality : given item quality before decrease computation
+     * @return the item quality after the ending day decrease
+     */
+    private int decreaseQuality(String itemName, int originalQuality){
+        if(itemName.contains(_CONJURED_SUFFIX) && originalQuality > 1){
+            return originalQuality - 2;
+        }else {
+            return originalQuality - 1;
         }
     }
 }
