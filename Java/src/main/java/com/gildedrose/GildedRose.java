@@ -67,7 +67,7 @@ class GildedRose {
     private int decreaseQuality(String itemName, int originalQuality){
         if(originalQuality > 0){
             if(itemName.contains(ItemConstants.CONJURED) && originalQuality > 1){
-                return originalQuality - ItemConstants.CONJURED_QUALITY_CHANGE_FACTOR;
+                return originalQuality - ItemConstants.CONJURED_QUALITY_DECREASING_FACTOR;
             }else {
                 return originalQuality - ItemConstants.QUALITY_CHANGE_FACTOR;
             }
@@ -85,7 +85,7 @@ class GildedRose {
      */
     private int decreaseSellIn(String itemName, int originalSellIn){
         if (!itemName.equals(ItemConstants.SULFURAS)) {
-            return originalSellIn - 1;
+            return originalSellIn - ItemConstants.SELL_IN_DECREASING_FACTOR;
         }
         return originalSellIn;
     }
