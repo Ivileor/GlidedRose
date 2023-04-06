@@ -72,9 +72,9 @@ class GildedRose {
      */
     private int decreaseQuality(String itemName, int originalQuality){
         if(itemName.contains(ItemConstants.CONJURED) && originalQuality > 1){
-            return originalQuality - 2;
+            return originalQuality - ItemConstants.CONJURED_QUALITY_DECREASE;
         }else {
-            return originalQuality - 1;
+            return originalQuality - ItemConstants.QUALITY_DECREASE;
         }
     }
 }
