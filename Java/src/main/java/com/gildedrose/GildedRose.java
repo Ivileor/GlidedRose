@@ -36,9 +36,7 @@ class GildedRose {
                 }
             }
 
-            if (!item.name.equals(ItemConstants.SULFURAS)) {
-                item.sellIn = item.sellIn - 1;
-            }
+            item.sellIn = decreaseSellIn(item.name, item.sellIn);
 
             if (item.sellIn < 0) {
                 if (!item.name.equals(ItemConstants.AGED_BRIE)) {
@@ -75,5 +73,20 @@ class GildedRose {
             }
         }
         return originalQuality;
+    }
+
+    /***
+     * Calculating the decrease on an item sellIn attribute :
+     * - If the item is not a "SULFURAS" type the sellIn is decrease by one
+     * - Else the sellIn is not changed
+     * @param itemName : given item name
+     * @param originalSellIn : given item sellIn before decrease computation
+     * @return the item sellIn attribute after process
+     */
+    private int decreaseSellIn(String itemName, int originalSellIn){
+        if (!itemName.equals(ItemConstants.SULFURAS)) {
+            return originalSellIn - 1;
+        }
+        return originalSellIn;
     }
 }
