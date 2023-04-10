@@ -20,9 +20,7 @@ class GildedRose {
             } else if (item.name.equals(ItemConstants.BACKSTAGE_PASSES)) {
                 item.quality = backstagePassesComputingQuality(item.sellIn, item.quality);
             } else {
-                if (item.quality < 50) {
-                    item.quality = item.quality + 1;
-                }
+                item.quality = increaseQuality(item.quality, computeCommonItemQualityChange(item.name,item.sellIn));
             }
 
             item.sellIn = decreaseSellIn(item.name, item.sellIn);
@@ -109,6 +107,25 @@ class GildedRose {
             return originalSellIn - ItemConstants.SELL_IN_DECREASING_FACTOR;
         }
         return originalSellIn;
+    }
+
+    /***
+     * Calculating an item quality change regarding the sellIn and his "Conjured" status
+     * @param itemName : given item name. Used to check a "Conjured" item
+     * @param sellIn : given item sellIn
+     * @return the quality change to apply on an item
+     */
+    private int computeCommonItemQualityChange(String itemName, int sellIn){
+        int qualityChange = ItemConstants.COMMON_QUALITY_CHANGE;
+        if(itemName.contains(ItemConstants.CONJURED)){
+            qualityChange = ItemConstants.CONJURED_QUALITY_DECREASING;
+        }
+
+        if(sellIn < 0){
+            return qualityChange * ItemConstants.EXPIRED_ITEM_QUALITY_CHANGE_FACTOR;
+        }else{
+            return qualityChange;
+        }
     }
 
 }
