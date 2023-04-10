@@ -68,7 +68,7 @@ public final class QualityUpdater {
      * @return the item sellIn attribute after process
      */
     public int decreaseSellIn(String itemName, int originalSellIn){
-        if (ItemConstants.SULFURAS.equals(itemName)) {
+        if (!ItemConstants.SULFURAS.equals(itemName)) {
             return originalSellIn - ItemConstants.SELL_IN_DECREASING_FACTOR;
         }
         return originalSellIn;
