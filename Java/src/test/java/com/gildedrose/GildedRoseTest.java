@@ -118,7 +118,7 @@ class GildedRoseTest {
 
     @Test
     void given11DaysOrMoreBackstagePasses_whenComeEndOfTheDay_thenQualityIsIncreased(){
-        setGivenItem(3, 11, 2);
+        setGivenItem(3, 12, 2);
         int expectedQuality = app.items[3].quality + 1;
 
         app.updateQuality();

@@ -11,6 +11,7 @@ class GildedRose {
 
     public void updateQuality() {
         for (Item item : items) {
+            item.sellIn = decreaseSellIn(item.name, item.sellIn);
 
             if(item.name.equals(ItemConstants.AGED_BRIE)){
                 item.quality = increaseQuality(item.quality, computeCommonItemQualityChange(item.name,item.sellIn));
@@ -20,7 +21,6 @@ class GildedRose {
                 item.quality = decreaseQuality(item.quality, computeCommonItemQualityChange(item.name, item.sellIn));
             }
 
-            item.sellIn = decreaseSellIn(item.name, item.sellIn);
         }
     }
 
