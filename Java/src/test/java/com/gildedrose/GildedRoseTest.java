@@ -45,7 +45,7 @@ class GildedRoseTest {
 
     @Test
     void givenCommonItemWithExpiredSellDate_whenComeEndOfTheDay_thenQualityIsDegradedTwice() {
-        setGivenItem(0, 0, 3);
+        setGivenItem(0, -1, 3);
         int expectedQuality = app.items[0].quality - 2;
 
         app.updateQuality();
@@ -76,7 +76,7 @@ class GildedRoseTest {
 
     @Test
     void givenAgedBrieWithPassedSellDate_whenComeEndOfTheDay_thenQualityIsIncreasedTwice() {
-        setGivenItem(1, 0, 2);
+        setGivenItem(1, -1, 2);
         int expectedQuality = app.items[1].quality + 2;
         app.updateQuality();
 
@@ -150,8 +150,8 @@ class GildedRoseTest {
     }
 
     @Test
-    void given0DaysOrLessBackstagePasses_whenComeEndOfTheDay_thenQualityIsZero(){
-        setGivenItem(3, 0, 2);
+    void given0DaysOrLessBackstagePasses_whenComeEndOfTheDay_thenQualityIsUnderZero(){
+        setGivenItem(3, -1, 2);
         int expectedQuality = 0;
 
         app.updateQuality();
@@ -173,7 +173,7 @@ class GildedRoseTest {
 
     @Test
     void givenExpiredConjuredItem_whenComeEndOfTheDay_thenQualityIsDegradedFourTimes(){
-        setGivenItem(4, 0, 5);
+        setGivenItem(4, -1, 5);
         int expectedQuality = app.items[4].quality - 4;
 
         app.updateQuality();
