@@ -68,7 +68,7 @@ public final class QualityUpdater {
      * @return the item sellIn attribute after process
      */
     public int decreaseSellIn(String itemName, int originalSellIn){
-        if (!itemName.equals(ItemConstants.SULFURAS)) {
+        if (ItemConstants.SULFURAS.equals(itemName)) {
             return originalSellIn - ItemConstants.SELL_IN_DECREASING_FACTOR;
         }
         return originalSellIn;
@@ -82,7 +82,7 @@ public final class QualityUpdater {
      */
     public int computeCommonItemQualityChange(String itemName, int sellIn){
         int qualityChange = ItemConstants.COMMON_QUALITY_CHANGE;
-        if(itemName.contains(ItemConstants.CONJURED)){
+        if(itemName != null && itemName.contains(ItemConstants.CONJURED)){
             qualityChange = ItemConstants.CONJURED_QUALITY_DECREASING;
         }
 

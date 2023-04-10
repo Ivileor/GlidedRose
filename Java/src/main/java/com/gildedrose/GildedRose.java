@@ -15,11 +15,11 @@ class GildedRose {
         for (Item item : items) {
             item.sellIn = qualityUpdater.decreaseSellIn(item.name, item.sellIn);
 
-            if(item.name.equals(ItemConstants.AGED_BRIE)){
+            if(ItemConstants.AGED_BRIE.equals(item.name)){
                 item.quality = qualityUpdater.increaseQuality(item.quality, qualityUpdater.computeCommonItemQualityChange(item.name,item.sellIn));
-            } else if (item.name.equals(ItemConstants.BACKSTAGE_PASSES)) {
+            } else if (ItemConstants.BACKSTAGE_PASSES.equals(item.name)) {
                 item.quality = qualityUpdater.backstagePassesComputingQuality(item.sellIn, item.quality);
-            } else if (!item.name.equals(ItemConstants.SULFURAS)){
+            } else if (!ItemConstants.SULFURAS.equals(item.name)){
                 item.quality = qualityUpdater.decreaseQuality(item.quality, qualityUpdater.computeCommonItemQualityChange(item.name, item.sellIn));
             }
 
