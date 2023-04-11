@@ -71,7 +71,7 @@ class GildedRose {
      * @return the item quality after the ending day decrease
      */
     private int decreaseQuality(String itemName, int originalQuality){
-        if(itemName.contains(CONJURED) && originalQuality > 1){
+        if(itemName!= null && itemName.contains(CONJURED) && originalQuality > 1){
             return originalQuality - CONJURED_QUALITY_DECREASE;
         }else {
             return originalQuality - QUALITY_DECREASE;
